@@ -1,0 +1,236 @@
+<div style="color:#18d8b8;background-color:rgba(187, 135, 87, 0.1);padding:20px;margin-right:15px;margin-left:15px;margin-bottom:10px;text-align:left">This is a port from the board game <a href="https://en.wikipedia.org/wiki/YINSH">Yinsh</a>
+<br>Click <a href="http://www.gipf.com/yinsh/rules/rules.html">here</a> for more detailed rules.
+<br>Click <a href="http://www.gipf.com/yinsh/notations/notation.html">here</a> for the notation system.<br>
+<br>Click <a href="https://github.com/MultiStruct/Yinsh">here</a> for the referee.<br>
+</div>
+<div class="statement-body">
+    
+
+    <!-- RULES -->
+    <div class="statement-section statement-rules">
+        <h1>
+            <span class="icon icon-rules">&nbsp;</span>
+            <span>Rules</span>
+        </h1>
+        <div class="statement-rules-content">
+            <ul>
+                <li><h3>Pieces: </h3>
+                    <ul>
+                        <li>Each player has 5 rings.</li>
+                        <li>There is a pool of markers with a total of 51 markers available.</li>
+                    </ul>
+                </li>
+                <li><h3>Goal: </h3>
+                    <ul>
+                        <li>The goal of the game is to remove 3 of your own rings. To remove 1 ring, you must form a row of 5 markers.</li>
+                    </ul>
+                </li>
+                <li><h3>Resolution of a turn:</h3>
+                    <ul>
+                        <li><strong>First turn: </strong>
+                            <ul>
+                                <li>On the first turn you are free to choose whether you want to receive legal moves or not, to do this you simply have to output "yes" or "no".</li>
+                            </ul>
+                        </li>
+                        <li><strong>Placement phase:</strong>
+                            <ul>
+                                <li>On this phase, you must place your rings, the white player goes first, black follows, this is done until all the rings from both players are in play (10 rings total).</li>
+                                <li>Black player has an optional action on his first placement, he can choose to "STEAL" white move, this will replace white first ring by a black ring, to do this you simply need to output "STEAL".</li>
+                            </ul>
+                        </li>
+                        <li><strong>Movement phase:</strong>
+                            <ul>
+                                <li>On this phase, the player must move a ring.</li>
+                                <li>Once a ring has moves, a marker of its color will be placed in its position before the move.</li>
+                                <li>The move of the ring must be done on a straight line.</li>
+                                <li>The move must end on an empty cell.</li>
+                                <li>A ring can jump over N empty spaces.</li>
+                                <li>A ring can jump over N markers as long as they are lined up.</li>
+                                <li>A ring can jump over N empty space and N markers as long as they are lined up, once the line of markers end, the ring cant go further.</li>
+                                <li>A ring can not jump over rings.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Flipping phase:</strong>
+                            <ul>
+                                <li>If you moved and didnt jump over any rings, this phase won't happen.</li>
+                                <li>If you jumped over rings, all the markers that have been jumped over must be flipped, this is, make all white markers black and all black markers white.</li>
+                                <li>The marker that has been placed on movement will not be flipped.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Removal phase:</strong>
+                            <ul>
+                                <li>Once you get a row of 5 markers of your own color (this row must be done in a straight line), you must remove them.</li>
+                                <li>The markers removed are added back to the markers pool</li>
+                                <li>After the markers are removed, you must also remove a ring.</li>
+                                <li>If you form a row of more than 5 markers, you must choose which markers to remove.</li>
+                                <li>It is possible to form 2 (or more) rows of 5 markers with only 1 move, if they don't intersect, you must remove all those rows, if they do intersect, you must choose which markers to remove.</li>
+                                <li>If you form a row of 5 markers for your opponent, he will remove these markers and a ring, before his move, he may choose which markers and ring to remove.</li>
+                                <li>If you form a row for you and a row for your opponent, you will remove yours as normal.</li>
+                                <li>If you have 2 removed rings and have formed 2 rows of rings, you must only remove 1 row, because you only need to remove one more ring to win.</li>
+                            </ul>
+                        </li>
+                        <li><strong>End phase:</strong>
+                            <ul>
+                                <li>The game ends once a player removes 3 rings (form 3 rows of 5 markers), this will make the player win.</li>
+                                <li>If both players have 2 rings removed and you make a row of 5 of your markers and a row of 5 of enemy markers, you will win, because you will remove the markers first</li>
+                                <li>If all markers are placed before any player removes 3 rings, the game will end, the player with more removed rings win, if both have the same number of removed rings, the game will end in a draw</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul>
+                <li><h3>Output notation:</h3>
+                    <ul>
+                        <li>To indicate a cell on the board, you must first output the letter (indicates the vertical row), followed by a digit (horizontal row).</li>
+                        <li>You must put an hyphen ("-") between the coordinates of a move, example ("f2-f5").</li>
+                        <li>To indicate a row, you must output the first marker and the last, example ("e4-i4") or ("i4-e4"), order does not matter</li>
+                        <li>To indicate a remove of a ring you must use an "x", example ("xe4-i4xg2") this would remove the markers placed on e4 up to i4 and remove the ring placed at g2.</li>
+                        <li>To separate moves you must use a ";", example ("h3-h5;xe4-i4xh5"), this will move ring from h3 to h5, remove row e4 up to i4 and remove the ring at h5.</li>
+                        <li>You can start a turn by having to remove and then move a piece, example("xg2-g6xk7;d1-c1")</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul>
+                <li><h3>Grid:</h3>
+                    <ul>
+                        <li>Game is played on an hex grid. Grid size will always remain the same.</li>
+                        <li>The grid coordinates are represented in the image below:<p style="text-align: center;"><img src="https://cdn-games.codingame.com/community/1540478-1590084104776/b93ce5cf27d20f1483ad6d12d2ecadfa0f8c9469e5fc346d749d13c011edc03d.png" style="height: 350px; width: auto;"></img></p></li>
+                        
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- EXAMPLES -->
+    <div class="statement-section statement-examples">
+        <h1>
+            <span class="icon icon-example">&nbsp;</span>
+            <span>Examples</span>
+        </h1>
+
+        <div class="statement-examples-text">
+            <div class="first-example"><h3>What is a line</h3></div><br>
+            <strong>The image below shows all possible directions that you can make a line:</strong>
+            <p style="text-align: center;"><img src="https://cdn-games.codingame.com/community/1540478-1590084104776/ca8febc2b2b347300402b834b8faca93ba6e158a6052aa321f543315e9eeff96.png" style="height: 350px; width: auto;"></img></p>
+            <ul>
+                <li>Red line: Represents a line of 4</li>
+                <li>Yellow line: Represents a line of 5</li>
+                <li>Blue line: Represents a line of 5</li>
+                <li>Pink line: Represents a line of 2</li>
+                <li>Black line: Represents a line of 5</li>
+                <li>Green line: Represents a line of 5</li>
+            </ul>
+            
+            <div class="first-example"><h3>Placement phase moves:</h3></div><br>
+            <p style="text-align: center;"><img src="https://cdn-games.codingame.com/community/1540478-1590084104776/35f7d0b178ef69037749473a0b5a3b39bc3ba24e5e033adb59d42938be55c8fa.png" style="height: auto; width: 600px;"></img></p>
+            <ul>
+                <li><strong style="color:#ff1d5c">(c6)</strong>: First player plays on <strong style="color:#ff1d5c">(c6)</strong></li>
+                <li><strong style="color:#22a1e4">(steal)</strong>: Second decides to steal his move so he puts a ring there<strong style="color:#22a1e4">(steal)</strong></li>
+                <li><strong style="color:#ff1d5c">(j6)</strong>: First player plays on <strong style="color:#ff1d5c">(j6)</strong></li>
+                <li><strong style="color:#22a1e4">(b6)</strong>: Second player plays on <strong style="color:#22a1e4">(b6)</strong></li>
+            </ul>
+
+            <div class="first-example"><strong>Movement moves</strong></div><br>
+            <p style="text-align: center;"><img src="https://cdn-games.codingame.com/community/1540478-1590084104776/c2a0b5357c6f05866ba01c2e65604dbfb417ef271d29043c9e7ab3da00fd3ca2.png" style="height: auto; width: 600px;"></img></p>
+            <ul>
+                <li><strong style="color:#ff1d5c">(b3-c3)</strong>: Places a marker at <strong>(b3)</strong> and moves the ring at <strong>(b3)</strong> to <strong>(c3)</strong>.</li>
+                <li><strong style="color:#ff1d5c">(h5-j5)</strong>: CPlaces a marker at <strong>(h5)</strong>, moves the ring at <strong>(b3)</strong> to <strong>(j5)</strong> and flips the marker that has been jumped over <strong>(i5)</strong>.</li>
+            </ul>
+
+            <div class="first-example"><strong>Movement with removal moves</strong></div><br>
+            <p style="text-align: center;"><img src="https://cdn-games.codingame.com/community/1540478-1590084104776/e13af2d26fceb68e5d014706c8759d4e46fdd00f14d382be518ea5d3ea1b298f.png" style="height: auto; width: 600px;"></img></p>
+            <ul>
+                <li><strong style="color:#ff1d5c">(h7-c7;xh5-h9xi9)</strong>: Places a marker at <strong>(h7)</strong>, moves the ring at <strong>(h7)</strong> to <strong>(c7)</strong>, flips the marker that has been jumped over <strong>(d7)</strong>, removes the markers from 
+                    <strong>(h5)</strong> to <strong>(h9)</strong> and removes the ring at <strong>(i9)</strong>.</li>
+                <li><strong style="color:#22a1e4">(f7-f2;xd4-h4xf2)</strong>: Places a marker at <strong>(f7)</strong>, moves the ring at <strong>(f7)</strong> to <strong>(f2)</strong>, flips the markers that have been jumped over <strong>(f5-f3)</strong>, removes the markers from 
+                    <strong>(d4)</strong> to <strong>(h4)</strong> and removes the ring at <strong>(f2)</strong>.</li>
+            </ul>
+
+            <div class="first-example"><strong>Remove move remove</strong></div><br>
+            <p style="text-align: center;"><img src="https://cdn-games.codingame.com/community/1540478-1590084104776/b156b4aaba1f9a94f1d9ff1d63a6c26f6ed6b4a5efe1fbe7c3d7fe83d610c89b.png" style="height: auto; width: 600px;"></img></p>
+            <ul>
+                <li><strong style="color:#22a1e4">(xe7-i11xd9;i7-i11;xi6-i10xh4)</strong>: Removes the markers from <strong>(e7)</strong> to <strong>(i11)</strong>, removes the ring at <strong>(d9)</strong>,
+                    places a marker at <strong>(i7)</strong>, moves the ring at <strong>(i7)</strong> to <strong>(i11)</strong>, flips the markers that have been jumped over <strong>(i8-i10)</strong>, removes the markers from 
+                    <strong>(i6)</strong> to <strong>(i10)</strong> and removes the ring at <strong>(h4)</strong>.</li>
+            </ul>
+        </div>
+    </div><br>
+
+    <!-- Victory conditions -->
+    <div class="statement-victory-conditions">
+        <div class="icon victory"></div>
+        <div class="blk">
+            <div class="title">Victory Conditions</div>
+            <div class="text">
+                <ul style="padding-bottom: 0;">
+                    <li>Remove 3 rings, this can be done by removing 3 rows of 5 markers.</li>
+                    <li>Have more rings removed before all markers are used.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lose conditions -->
+    <div class="statement-lose-conditions">
+        <div class="icon lose"></div>
+        <div class="blk">
+            <div class="title">Loss Conditions</div>
+            <div class="text">
+                <ul style="padding-bottom: 0;">
+                    <li>You don't have legal moves.</li>
+                    <li>You don't remove a row of 5 markers on your turn.</li>
+                    <li>You don't respond in time or output an unrecognized command.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROTOCOL -->
+    <div class="statement-section statement-protocol">
+        <h1>
+        <span class="icon icon-protocol">&nbsp;</span>
+        <span>Game Input</span>
+    </h1>
+
+    <!-- Protocol block -->
+    <div class="blk">
+        <div class="title">Initial input</div>
+        <div class="text">
+            <span class="statement-lineno">First line</span>: The id of the player(<var>myId</var>)
+        </div>
+        <div class="title">Input for one game turn</div>
+        <div class="text">
+            <span class="statement-lineno">First line</span>: <var>count</var>: the number of rows on hex grid.
+            <br>
+            <span class="statement-lineno">Next <var>count</var> lines</span>: characters representing one line of your grid, left to right(viewer perspective). (.: empty, R: your ring, S: your marker, r: enemy ring, s: enemy marker).
+            <br>
+            <span class="statement-lineno">Next <var>actionCount</var></span>: the number of legal actions for this turn.
+            <br>
+            <span class="statement-lineno">Next <var>actionCount</var> lines</span>: string represting the action.
+            <br>
+        </div>
+    </div>
+
+    <!-- Protocol block -->
+    <div class="blk">
+        <div class="title">Output</div>
+        <div class="text">
+            <span class="statement-lineno">A single line</span> containing the action you want to do. Example "a2-a3".<br>
+        <br>
+        </div>
+    </div>
+
+    <!-- Protocol block -->
+    <div class="blk">
+        <div class="title">Constraints</div>
+        Response time first turn is ≤
+        <const>1000</const> ms.
+        <br>Response time per turn is ≤
+        <const>100</const> ms.
+        </div>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+read myId:int
+write yes
+
+gameloop
+read count:int
+loop count read line:word(13)
+read actionCount:int
+loop actionCount read action:word(50)
+write a2
+
+INPUT
+myId: ID of your player.
+count: number of rows.
+line: rows from left to right (viewer perspective).
+actionCount: number of legal actions for this turn.
+action: the action
