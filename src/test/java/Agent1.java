@@ -29,7 +29,7 @@ public class Agent1 {
             if(turn == 1 && id == 2) {
                 System.out.println("STEAL");
             } else
-                System.out.println(ans+";");
+                System.out.println(ans+";MSG");
         }
     }
 }

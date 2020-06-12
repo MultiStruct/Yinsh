@@ -106,6 +106,7 @@ public class Referee extends AbstractReferee {
             }
 
             if(action.getType() == Action.ActionType.REMOVE) {
+                gameManager.addToGameSummary(String.format("Player %s has removed a ring.", currentPlayer.getNicknameToken()));
                 gameManager.addTooltip(currentPlayer, "Removed 1 ring");
             }
             currentPlayer.UI.setTexts(action);
@@ -138,10 +139,27 @@ public class Referee extends AbstractReferee {
 
         try {
             List<String> out = currentPlayer.getOutputs();
-            if(out.get(0).charAt(out.get(0).length() - 1) == ';') {
-                out.set(0, out.get(0).substring(0, out.get(0).length() - 1));
+
+            String[] outputs = out.get(0).split("MSG");
+            outputs[0] = outputs[0].replaceAll("\\s", "");
+
+            String message = "";
+            if(outputs.length > 1) {
+                outputs[1] = outputs[1].replaceFirst("MSG\\s","");
+                if(outputs[1].length() > 14) {
+                    outputs[1] = outputs[1].substring(0, 14);
+                }
+                message = outputs[1];
             }
-            String[] split = out.get(0).split(";");
+
+            currentPlayer.drawMessage(message);
+
+            if(outputs[0].charAt(outputs[0].length() - 1) == ';') {
+                outputs[0] = outputs[0].substring(0, outputs[0].length() - 1);
+            }
+
+            String[] split = outputs[0].split(";");
+
             currentPlayer.output = split;
             ArrayList<Action> current = actions;
             // TODO ILL NEED A BETTER THING THAN THIS
@@ -171,6 +189,7 @@ public class Referee extends AbstractReferee {
             }
             board.applyAction(action, currentPlayer, true);
             if(action.getType() == Action.ActionType.REMOVE) {
+                gameManager.addToGameSummary(String.format("Player %s has removed a ring.", currentPlayer.getNicknameToken()));
                 gameManager.addTooltip(currentPlayer, "Removed 1 ring");
             }
             currentPlayer.UI.setTexts(action);
@@ -246,12 +265,15 @@ public class Referee extends AbstractReferee {
         int[] scores = { gameManager.getPlayer(0).getScore(), gameManager.getPlayer(1).getScore() };
         String[] text = new String[2];
         if(scores[0] > scores[1]) {
+            gameManager.addToGameSummary(gameManager.formatSuccessMessage(gameManager.getPlayer(0).getNicknameToken() + " won!"));
             text[0] = "Captured " + scores[0] + " rings";
             text[1] = "Captured " + scores[1] + " rings";
         } else if(scores[1] > scores[0]) {
+            gameManager.addToGameSummary(gameManager.formatSuccessMessage(gameManager.getPlayer(1).getNicknameToken() + " won!"));
             text[0] = "Captured " + scores[0] + " rings";
             text[1] = "Captured " + scores[1] + " rings";
         } else {
+            gameManager.addToGameSummary(gameManager.formatSuccessMessage("draw!"));
             text[0] = "Captured " + scores[0] + " rings";
             text[1] = "Captured " + scores[1] + " rings";
         }

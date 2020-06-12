@@ -36,11 +36,15 @@ public class PlayerUI {
 
         texts[0] = graphics.createText("").setFontSize(FONT_SIZE + 10).setFillColor(player.getColor()).setAnchorX(0.5).setFontWeight(Text.FontWeight.BOLD).setX(210 + 1500 * player.getIndex()).setY(650);
         texts[1] = graphics.createText("").setFontSize(FONT_SIZE).setAnchorX(0.5).setFontWeight(Text.FontWeight.BOLD).setX(210 + 1500 * player.getIndex()).setY(705);
-        texts[2] = graphics.createText("").setFontSize(FONT_SIZE).setAnchorX(0.5).setFontWeight(Text.FontWeight.BOLD).setX(210 + 1500 * player.getIndex()).setY(755);
+        texts[2] = graphics.createText("").setFontSize(FONT_SIZE - 6).setAnchorX(0.5).setFontWeight(Text.FontWeight.BOLD).setFontFamily("Arial").setX(210 + 1500 * player.getIndex()).setY(755);
 
         hud.add(texts);
         if (player.getIndex() == 1)
             hud.setAlpha(0.5);
+    }
+
+    public Text[] getTexts() {
+        return texts;
     }
 
     public void setTexts(Action action) {

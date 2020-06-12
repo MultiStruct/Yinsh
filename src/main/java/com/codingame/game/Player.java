@@ -32,6 +32,14 @@ public class Player extends AbstractMultiplayerPlayer {
         setScore(getScore() + 1);
     }
 
+    public void drawMessage(String message) {
+        if(message != "") {
+            UI.getTexts()[2].setText(message);
+        } else if(message == "" && UI.getTexts()[2].getText() != "") {
+            UI.getTexts()[2].setText("");
+        }
+    }
+
     public void decreaseScore() {
         setScore(getScore() - 1);
     }
